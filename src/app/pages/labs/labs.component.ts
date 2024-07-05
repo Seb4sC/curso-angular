@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,14 +9,31 @@ import { CommonModule } from '@angular/common';
   styleUrl: './labs.component.css'
 })
 export class LabsComponent {
-  curso = 'Bienvenido a Angular';
-  tasks = [
+  curso = signal('Bienvenido a Angular');
+  tasks = signal([
     'Instalar el Angular CLI',
     'Crear el proyecto',
     'Crear componentes'
-  ];
+  ]);
   persona = {
     name: 'Sebastian',
     age: 21
+  }
+  disabled = false;
+
+  clickHandler(){
+    alert('Hola');
+  }
+
+  changeHandler(event: Event){
+    const input = event.target as HTMLInputElement;
+    const newValue = input.value;
+    this.curso.set(newValue);
+  }
+
+  keydownHandler(event: KeyboardEvent){
+    const input = event.target as HTMLInputElement;
+    console.log(input.value);
+    
   }
 }
